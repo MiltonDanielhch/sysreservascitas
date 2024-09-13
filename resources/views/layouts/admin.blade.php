@@ -117,6 +117,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </li>
             </ul>
           </li>
+           <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+               <li class="nav-item">
+                <a href="#" class="nav-link active">
+                    <i class="bi bi-person-circle"></i>
+                  <p>
+                    Secretarias
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <style>
+                    .nav-item.active {
+                        background-color: #91b4a8;
+                    }
+                </style>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item {{ request()->routeIs('admin.secretarias.create') ? 'active' : '' }}">
+                        <a href="{{ route('admin.secretarias.create') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Creación de Secretarias</p>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('admin.secretarias.index') ? 'active' : '' }}">
+                        <a href="{{ route('admin.secretarias.index') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Listado de Secretarias</p>
+                        </a>
+                    </li>
+                </ul>
+              </li>
           <li class="nav-item">
             <a href="#" class="nav-link" style="background-color: #a9200e">
               <i class="nav-icon bi bi-door-closed"></i>
