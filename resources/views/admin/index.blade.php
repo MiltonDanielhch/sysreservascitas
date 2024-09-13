@@ -26,9 +26,9 @@
                 <p>Secretarias</p>
             </div>
             <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="ion fas bi bi-person-circle"></i>
             </div>
-            <a href="{{ url('admin/secretarias') }}" class="small-box-footer">Mas Información <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ url('admin/secretarias') }}" class="small-box-footer">Mas Información <i class="fasbi bi-person-circle"></i></a>
         </div>
     </div>
 
@@ -36,13 +36,13 @@
 
         <div class="small-box bg-warning">
             <div class="inner">
-                <h3>44</h3>
-                <p>User Registrations</p>
+                <h3>{{ $total_pacientes }}</h3>
+                <p>Pacientes</p>
             </div>
             <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="ion fas bi bi-person-add"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ url('admin/pacientes') }}" class="small-box-footer">Mas Información <i class="fas bi bi-person-add"></i></a>
         </div>
     </div>
 

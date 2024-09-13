@@ -22,26 +22,28 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        User::create([
-            'name'=>'Administrador',
-            'email'=>'admin@admin.com',
-            'password'=>Hash::make('12345678')
-        ]);
+        // User::create([
+        //     'name'=>'Administrador',
+        //     'email'=>'admin@admin.com',
+        //     'password'=>Hash::make('12345678')
+        // ]);
 
-        User::create([
-            'name'=>'Secretaria',
-            'email'=>'secretaria@admin.com',
-            'password'=>Hash::make('12345678')
-        ]);
-        User::create([
-            'name'=>'Doctor1',
-            'email'=>'doctor1@admin.com',
-            'password'=>Hash::make('12345678')
-        ]);
-        User::create([
-            'name'=>'Paciente1',
-            'email'=>'paciente1@admin.com',
-            'password'=>Hash::make('12345678')
-        ]);
+        // User::create([
+        //     'name'=>'Secretaria',
+        //     'email'=>'secretaria@admin.com',
+        //     'password'=>Hash::make('12345678')
+        // ]);
+        // User::create([
+        //     'name'=>'Doctor1',
+        //     'email'=>'doctor1@admin.com',
+        //     'password'=>Hash::make('12345678')
+        // ]);
+        // User::create([
+        //     'name'=>'Paciente1',
+        //     'email'=>'paciente1@admin.com',
+        //     'password'=>Hash::make('12345678')
+        // ]);
+
+        $this->call([PacienteSeeder::class]);
     }
 }

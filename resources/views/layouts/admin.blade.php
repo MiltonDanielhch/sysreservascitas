@@ -119,7 +119,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
            <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-               <li class="nav-item">
+
+              <li class="nav-item">
                 <a href="#" class="nav-link active">
                     <i class="bi bi-person-circle"></i>
                   <p>
@@ -143,6 +144,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <a href="{{ route('admin.secretarias.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Listado de Secretarias</p>
+                        </a>
+                    </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link active">
+                    <i class="bi bi-person-add"></i>
+                  <p>
+                    Pacientes
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <style>
+                    .nav-item.active {
+                        background-color: #91b4a8;
+                    }
+                </style>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item {{ request()->routeIs('admin.secretarias.create') ? 'active' : '' }}">
+                        <a href="{{ route('admin.pacientes.create') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Creación de Pacientes</p>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('admin.pacientes.index') ? 'active' : '' }}">
+                        <a href="{{ route('admin.pacientes.index') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Listado de Pacientes</p>
                         </a>
                     </li>
                 </ul>
