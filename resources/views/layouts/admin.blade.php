@@ -162,7 +162,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     }
                 </style>
                 <ul class="nav nav-treeview">
-                    <li class="nav-item {{ request()->routeIs('admin.secretarias.create') ? 'active' : '' }}">
+                    <li class="nav-item {{ request()->routeIs('admin.pacientes.create') ? 'active' : '' }}">
                         <a href="{{ route('admin.pacientes.create') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Creación de Pacientes</p>
@@ -172,6 +172,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <a href="{{ route('admin.pacientes.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Listado de Pacientes</p>
+                        </a>
+                    </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link active">
+                    <i class="bi bi-building-fill-add"></i>
+                  <p>
+                    Consultorio
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <style>
+                    .nav-item.active {
+                        background-color: #91b4a8;
+                    }
+                </style>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item {{ request()->routeIs('admin.consultorios.create') ? 'active' : '' }}">
+                        <a href="{{ route('admin.consultorios.create') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Creación de Consultorios</p>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('admin.consultorios.index') ? 'active' : '' }}">
+                        <a href="{{ route('admin.consultorios.index') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Listado de Consultorios</p>
                         </a>
                     </li>
                 </ul>
