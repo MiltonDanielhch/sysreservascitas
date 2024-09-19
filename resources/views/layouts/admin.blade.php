@@ -204,6 +204,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </li>
                 </ul>
               </li>
+
+              <li class="nav-item">
+                <a href="#" class="nav-link active">
+                    <i class="bi bi-person-lines-fill"></i>
+                  <p>
+                    Doctores
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <style>
+                    .nav-item.active {
+                        background-color: #91b4a8;
+                    }
+                </style>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item {{ request()->routeIs('admin.doctores.create') ? 'active' : '' }}">
+                        <a href="{{ route('admin.doctores.create') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Creación de Doctores</p>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('admin.doctores.index') ? 'active' : '' }}">
+                        <a href="{{ route('admin.doctores.index') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Listado de Doctores</p>
+                        </a>
+                    </li>
+                </ul>
+              </li>
+
           <li class="nav-item">
             <a href="#" class="nav-link" style="background-color: #a9200e">
               <i class="nav-icon bi bi-door-closed"></i>
