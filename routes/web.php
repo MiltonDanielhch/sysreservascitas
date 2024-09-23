@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ConsultorioController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\SecretariaController;
 use App\Http\Controllers\UsuarioController;
@@ -81,3 +82,17 @@ Route::get('/admin/doctores/{id}/edit', [DoctorController::class, 'edit'])->name
 Route::put('/admin/doctores/{id}', [DoctorController::class, 'update'])->name('admin.doctores.update')->middleware('auth');
 Route::get('/admin/doctores/{id}/confirm-delete', [DoctorController::class, 'confirmDelete'])->name('admin.doctores.confirmDelete')->middleware('auth');
 Route::delete('/admin/doctores/{id}', [DoctorController::class, 'destroy'])->name('admin.doctores.destroy')->middleware('auth');
+
+
+//Rutas para el admin - horarios
+Route::get('/admin/horarios', [HorarioController::class, 'index'])->name('admin.horarios.index')->middleware('auth');
+Route::get('/admin/horarios/create', [HorarioController::class, 'create'])->name('admin.horarios.create')->middleware('auth');
+Route::post('/admin/horarios/create', [HorarioController::class, 'store'])->name('admin.horarios.store')->middleware('auth');
+Route::get('/admin/horarios/{id}', [HorarioController::class, 'show'])->name('admin.horarios.show')->middleware('auth');
+Route::get('/admin/horarios/{id}/edit', [HorarioController::class, 'edit'])->name('admin.horarios.edit')->middleware('auth');
+Route::put('/admin/horarios/{id}', [HorarioController::class, 'update'])->name('admin.horarios.update')->middleware('auth');
+Route::get('/admin/horarios/{id}/confirm-delete', [HorarioController::class, 'confirmDelete'])->name('admin.horarios.confirmDelete')->middleware('auth');
+Route::delete('/admin/horarios/{id}', [HorarioController::class, 'destroy'])->name('admin.horarios.destroy')->middleware('auth');
+
+//ajax
+Route::get('/admin/horarios/consultorios/{id}', [HorarioController::class, 'cargar_datos_consultorios'])->name('admin.horarios.cargar_datos_consutorios')->middleware('auth');

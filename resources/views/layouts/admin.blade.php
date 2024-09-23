@@ -234,6 +234,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </ul>
               </li>
 
+              <li class="nav-item">
+                <a href="#" class="nav-link active">
+                    <i class="bi bi-calendar2-week"></i>
+                  <p>
+                    Horarios
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <style>
+                    .nav-item.active {
+                        background-color: #91b4a8;
+                    }
+                </style>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item {{ request()->routeIs('admin.horarios.create') ? 'active' : '' }}">
+                        <a href="{{ route('admin.horarios.create') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Creación de horarios</p>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('admin.horarios.index') ? 'active' : '' }}">
+                        <a href="{{ route('admin.horarios.index') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Listado de horarios</p>
+                        </a>
+                    </li>
+                </ul>
+              </li>
+
           <li class="nav-item">
             <a href="#" class="nav-link" style="background-color: #a9200e">
               <i class="nav-icon bi bi-door-closed"></i>
