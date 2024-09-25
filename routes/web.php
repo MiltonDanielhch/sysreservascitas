@@ -8,6 +8,7 @@ use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\SecretariaController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\WebController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
@@ -22,9 +23,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [WebController::class, 'index'])->name('index');
+
+//ajax
+Route::get('/consultorios/{id}', [WebController::class, 'cargar_datos_consultorios'])->name('cargar_datos_consultorios');
 
 Auth::routes();
 
@@ -34,7 +36,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->middleware('auth');
 
 //Rutas para el admin - usuarios
-Route::get('/admin/usuarios', [UsuarioController::class, 'index'])->name('admin.usuarios.index')->middleware('auth');
+Route::get('/admin/usuarios', [UsuarioController::class, 'index'])->name('admin.usuarios.index')->middleware('auth', 'can:admin.usuarios.index');
 Route::get('/admin/usuarios/create', [UsuarioController::class, 'create'])->name('admin.usuarios.create')->middleware('auth');
 Route::post('/admin/usuarios/create', [UsuarioController::class, 'store'])->name('admin.usuarios.store')->middleware('auth');
 Route::get('/admin/usuarios/{id}', [UsuarioController::class, 'show'])->name('admin.usuarios.show')->middleware('auth');

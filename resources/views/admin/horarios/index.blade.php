@@ -130,6 +130,7 @@
                 <div class="col-md-4">
                     <div class="card-header">
                         <select name="consultorio_id" id="consultorio_select" class="form-control">
+                            <option value="">Seleccione un consultorio...</option>
                             @foreach ($consultorios as $consultorio)
                                 <option value="{{ $consultorio->id }}">{{ $consultorio->nombre }} - {{ $consultorio->ubicacion }}</option>
                             @endforeach
