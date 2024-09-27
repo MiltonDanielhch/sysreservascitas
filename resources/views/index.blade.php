@@ -128,7 +128,7 @@
                 Lorem ipsum dolor sit amet,
               </p>
               <div class="text-center">
-                <a href="#about" class="more-btn"><span>Reservar ahora</span> <i class="bi bi-chevron-right"></i></a>
+                <a href="{{ url('/admin') }}" class="more-btn"><span>Reservar ahora</span> <i class="bi bi-chevron-right"></i></a>
               </div>
             </div>
           </div><!-- End Why Box -->
@@ -205,12 +205,13 @@
                             $('#consultorio_select').on('change', function(){
                                 var consultorio_id = $('#consultorio_select').val();
                                 // alert(consultorio_id);
-                                var url = "{{ route('cargar_datos_consultorios', ':id') }}"
-                                url = url.replace(':id', consultorio_id);
+                                // var url = "{{ route('cargar_datos_consultorios', ':id') }}"
+                                // url = url.replace(':id', consultorio_id);
                                 // alert(url);
                                 if(consultorio_id){
                                     $.ajax({
-                                        url: url,
+                                        url: "{{ url('/consultorios/') }}" + '/' + consultorio_id,
+                                        // url: url,
                                         type: 'GET',
                                         success: function (data){
                                             $('#consultorio_info').html(data);
