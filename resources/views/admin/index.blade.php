@@ -100,6 +100,39 @@
     </div>
     @endcan
 
+    @can('admin.horarios.index')
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{ $total_eventos }}</h3>
+                <p>Reserva</p>
+            </div>
+            <div class="icon">
+                <i class="ion fas bi bi-calendar2-check"></i>
+            </div>
+            <a href="{{ url('/admin/horarios') }}" class="small-box-footer"><i
+                    class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    @endcan
+
+    @can('admin.horarios.index')
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-primary">
+            <div class="inner">
+                <h3>{{ $total_configuraciones }}</h3>
+                <p>Configuraciones</p>
+            </div>
+            <div class="icon">
+                <i class="ion fas bi bi-gear"></i>
+            </div>
+            <a href="{{ url('/admin/configuraciones') }}" class="small-box-footer">Mas Informacion<i
+                    class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    @endcan
+
+
     @can('cargar_datos_consultorios')
     <div class="container">
         <div class="row">
@@ -359,6 +392,113 @@
     </div>
     @endcan
 
+
+    @if(Auth::check() && Auth::user()->doctor)
+        {{-- <h1>si esta autenticado y tiene relacionn con el doctor</h1> --}}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-outline card-outline card-success">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card-header">
+                                    <h3 class="card-title">Calendario de Reserva</h3>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+                            {{-- <h1>{{ Auth::user()->doctor->id }}</h1> --}}
+                            <table id="example1" class="table table-striped table-bordered table-hover table-sm">
+                                <thead class="table-dark">
+                                    <tr class="text-center">
+                                        <th scope="col">#</th>
+                                        <th scope="col">Usuario</th>
+                                        <th scope="col">Fecha de reserva</th>
+                                        <th scope="col">Hora de reserva</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                    $contador = 1;
+                                    @endphp
+                                    {{-- @foreach ($eventos as $evento) --}}
+                                    @foreach (collect($eventos)->where('doctor_id', Auth::user()->doctor->id)->all() as $evento)
+                                        @if(Auth::user()->doctor->id == $evento->doctor_id)
+                                            <tr>
+                                                <td>{{ $contador++ }}</td>
+                                                <td>{{ $evento->user->name }} </td>
+                                                <td>{{ \Carbon\Carbon::parse($evento->start)->format('Y-m-d') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($evento->start)->format('H:i') }}</td>
+                                            </tr>
+                                        @endif
+
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <script>
+                                $(function () {
+                                    $("#example1").DataTable({
+                                        "pageLength": 10,
+                                        "language": {
+                                            "emptyTable": "No hay información",
+                                            "info": "Mostrando _START_ a _END_ de _TOTAL_ Reservas",
+                                            "infoEmpty": "Mostrando 0 a 0 de 0 Reservas",
+                                            "infoFiltered": "(Filtrado de _MAX_ total Reservas)",
+                                            "infoPostFix": "",
+                                            "thousands": ",",
+                                            "lengthMenu": "Mostrar _MENU_ Reservas",
+                                            "loadingRecords": "Cargando...",
+                                            "processing": "Procesando...",
+                                            "search": "Buscador:",
+                                            "zeroRecords": "Sin resultados encontrados",
+                                            "paginate": {
+                                                "first": "Primero",
+                                                "last": "Ultimo",
+                                                "next": "Siguiente",
+                                                "previous": "Anterior"
+                                            }
+                                        },
+                                        "responsive": true, "lengthChange": true, "autoWidth": false,
+                                        buttons: [{
+                                            extend: 'collection',
+                                            text: 'Reportes',
+                                            orientation: 'landscape',
+                                            buttons: [{
+                                                text: 'Copiar',
+                                                extend: 'copy',
+                                            }, {
+                                                extend: 'pdf'
+                                            },{
+                                                extend: 'csv'
+                                            },{
+                                                extend: 'excel'
+                                            },{
+                                                text: 'Imprimir',
+                                                extend: 'print'
+                                            }
+                                            ]
+                                        },
+                                            {
+                                                extend: 'colvis',
+                                                text: 'Visor de columnas',
+                                                collectionLayout: 'fixed three-column'
+                                            }
+                                        ],
+                                    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                                });
+                            </script>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    @endif
 
 </div>
 {{-- <script>

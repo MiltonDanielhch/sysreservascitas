@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\ConsultorioController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\EventController;
@@ -34,6 +35,17 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 //Rutas para el admin
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->middleware('auth');
 
+//Rutas para el admin - Configuraciones
+Route::get('/admin/configuraciones', [ConfigController::class, 'index'])->name('admin.configuraciones.index')->middleware('auth', 'can:admin.usuarios.index');
+Route::get('/admin/configuraciones/create', [ConfigController::class, 'create'])->name('admin.configuraciones.create')->middleware('auth', 'can:admin.usuarios.create');
+Route::post('/admin/configuraciones/create', [ConfigController::class, 'store'])->name('admin.configuraciones.store')->middleware('auth', 'can:admin.usuarios.store');
+Route::get('/admin/configuraciones/{id}', [ConfigController::class, 'show'])->name('admin.configuraciones.show')->middleware('auth', 'can:admin.usuarios.show');
+Route::get('/admin/configuraciones/{id}/edit', [ConfigController::class, 'edit'])->name('admin.configuraciones.edit')->middleware('auth', 'can:admin.usuarios.edit');
+Route::put('/admin/configuraciones/{id}',[ConfigController::class, 'update'])->name('admin.configuraciones.update')->middleware('auth', 'can:admin.usuarios.update');
+Route::get('/admin/configuraciones/{id}/confirm-delete', [ConfigController::class, 'confirmDelete'])->name('admin.configuraciones.confirmDelete')->Middleware('auth', 'can:admin.configuraciones.confirmDelete');
+Route::delete('/admin/configuraciones/{id}', [ConfigController::class, 'destroy'])->name('admin.configuraciones.destroy')->middleware('auth', 'can:admin.configuraciones.destroy');
+
+
 //Rutas para el admin - usuarios
 Route::get('/admin/usuarios', [UsuarioController::class, 'index'])->name('admin.usuarios.index')->middleware('auth', 'can:admin.usuarios.index');
 Route::get('/admin/usuarios/create', [UsuarioController::class, 'create'])->name('admin.usuarios.create')->middleware('auth', 'can:admin.usuarios.create');
@@ -44,7 +56,7 @@ Route::put('/admin/usuarios/{id}',[UsuarioController::class, 'update'])->name('a
 Route::get('/admin/usuarios/{id}/confirm-delete', [UsuarioController::class, 'confirmDelete'])->name('admin.usuarios.confirmDelete')->Middleware('auth', 'can:admin.usuarios.confirmDelete');
 Route::delete('/admin/usuarios/{id}', [UsuarioController::class, 'destroy'])->name('admin.usuario.destroy')->middleware('auth', 'can:admin.usuario.destroy');
 
-//Rutas para el admin - usuarios
+//Rutas para el admin - secretaria
 Route::get('/admin/secretarias', [SecretariaController::class, 'index'])->name('admin.secretarias.index')->middleware('auth', 'can:admin.secretarias.index');
 Route::get('/admin/secretarias/create', [SecretariaController::class, 'create'])->name('admin.secretarias.create')->middleware('auth', 'can:admin.secretarias.create');
 Route::post('/admin/secretarias/create', [SecretariaController::class, 'store'])->name('admin.secretarias.store')->middleware('auth', 'can:admin.secretarias.store');
