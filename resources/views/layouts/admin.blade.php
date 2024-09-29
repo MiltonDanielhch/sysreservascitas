@@ -265,6 +265,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <p>Listado de Doctores</p>
                                     </a>
                                 </li>
+                                <li class="nav-item {{ request()->routeIs('admin.doctores.reportes') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.doctores.reportes') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Reportes</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         @endcan
@@ -300,6 +306,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </li>
                         @endcan
 
+                        @can('admin.usuarios.index')
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">
+                                <i class="bi bi-calendar2-check"></i>
+                                <p>
+                                    Reservas
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <style>
+                                .nav-item.active {
+                                    background-color: #91b4a8;
+                                }
+                            </style>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item {{ request()->routeIs('admin.reservas.reportes') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.reservas.reportes') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Reportes</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endcan
 
 
                         <li class="nav-item">

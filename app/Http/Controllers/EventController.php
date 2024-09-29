@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Config;
 use App\Models\Doctor;
 use App\Models\Event;
 use App\Models\Horario;
@@ -138,5 +139,48 @@ class EventController extends Controller
             'mensaje' => 'se elimino la reserva de la manera correcta',
             'icon' => 'success'
         ]);
+    }
+    public function reportes(){
+        return view('admin.reservas.reportes');
+    }
+
+    public function pdf(){
+        $configuracion = Config::latest()->first();
+        $eventos = Event::all();
+        $pdf = \PDF::loadView('admin.reservas.pdf', compact('configuracion', 'eventos'));
+
+        // Incluir la numeración de páginas y el pie de página
+        $pdf->output();
+        $dompdf = $pdf->getDomPDF();
+        $canvas = $dompdf->getCanvas();
+        $canvas->page_text(20, 800, "Impreso Por: ".Auth::user()->email, null, 10, array(0,0,0));
+        $canvas->page_text(270, 800, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0,0,0));
+        $canvas->page_text(450, 800, "Fecha: ".\Carbon\Carbon::now()->format('d/m/Y')." - ".\Carbon\Carbon::now()->format('H:i:s'), null, 10, array(0,0,0));
+        return $pdf->stream();
+
+    }
+
+    public function pdf_fechas(Request $request){
+        // $datos =request()->all();
+        // return response()->json($datos);
+
+        $configuracion = Config::latest()->first();
+
+        $fecha_inicio = $request->input('fecha_inicio');
+        $fecha_fin = $request->input('fecha_fin');
+
+        $eventos = Event::whereBetween('start', [$fecha_inicio, $fecha_fin])->get();
+
+        $pdf = \PDF::loadView('admin.reservas.pdf_fechas', compact('configuracion', 'eventos', 'fecha_inicio', 'fecha_fin'));
+
+
+        // Incluir la numeración de páginas y el pie de página
+        $pdf->output();
+        $dompdf = $pdf->getDomPDF();
+        $canvas = $dompdf->getCanvas();
+        $canvas->page_text(20, 800, "Impreso Por: ".Auth::user()->email, null, 10, array(0,0,0));
+        $canvas->page_text(270, 800, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0,0,0));
+        $canvas->page_text(450, 800, "Fecha: ".\Carbon\Carbon::now()->format('d/m/Y')." - ".\Carbon\Carbon::now()->format('H:i:s'), null, 10, array(0,0,0));
+        return $pdf->stream();
     }
 }

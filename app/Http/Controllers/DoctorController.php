@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Config;
 use App\Models\Doctor;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class DoctorController extends Controller
@@ -138,5 +140,23 @@ class DoctorController extends Controller
         $doctor->delete;
 
         return redirect()->route('admin.doctores.index')->with('mensaje', 'se elimino al doctor de manera correcta')->with('icono', 'success');
+    }
+    public function reportes(){
+        return view('admin.doctores.reportes');
+    }
+    public function pdf(){
+        $configuracion = Config::latest()->first();
+        $doctores = Doctor::all();
+        $pdf = \PDF::loadView('admin.doctores.pdf', compact('configuracion', 'doctores'));
+
+        //Incluir la numeración de páginas y el pie de página
+        $pdf->output();
+        $dompdf = $pdf->getDomPDF();
+        $canvas = $dompdf->getCanvas();
+        $canvas->page_text(20, 800, "Impreso Por: ".Auth::user()->email, null, 10, array(0,0,0));
+        $canvas->page_text(270, 800, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0,0,0));
+        $canvas->page_text(450, 800, "Fecha: ".\Carbon\Carbon::now()->format('d/m/Y')." - ".\Carbon\Carbon::now()->format('H:i:s'), null, 10, array(0,0,0));
+        return $pdf->stream();
+
     }
 }
