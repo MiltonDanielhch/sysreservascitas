@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Config;
 use App\Models\Consultorio;
 use App\Models\Doctor;
 use App\Models\Horario;
@@ -30,6 +31,19 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([RoleSeeder::class]);
+
+        //  // Create Administrator role if it doesn't exist
+        //  $adminRole = Role::firstOrCreate(['name' => 'admin']);
+
+        //  // Create Administrator user with secure password
+        //  $admin = User::create([
+        //      'name' => 'Administrador',
+        //      'email' => 'admin@admin.com',
+        //      'password' => bcrypt('your_secure_password'), // Replace with a secure password
+        //  ]);
+
+        //  // Assign Administrator role to the user
+        //  $admin->assignRole($adminRole);
 
         User::create([
             'name'=>'Administrador',
@@ -148,6 +162,14 @@ class DatabaseSeeder extends Seeder
             'hora_fin'=>'14:00:00',
             'doctor_id'=>'1',
             'consultorio_id'=>'1'
+        ]);
+
+        Config::create([
+            'nombre'=>'clinica',
+            'direccion' => 'zona pompeya',
+            'telefono' => '3948727 - 3634643',
+            'correo' => 'asdf@gmail.com',
+            'logo' => 'logos/8IyW8eTyJfFKOjS8YIHpyOz7iwFEVdVPGHZqPlSY.jpg'
         ]);
     }
 }

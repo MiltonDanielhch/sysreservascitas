@@ -35,6 +35,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     {{-- full calendar --}}
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
     {{-- <script src="{{ url('fulcalendar/es.global.js') }}"></script> --}}
+
+    {{-- CKEditor --}}
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.1.1/ckeditor5.css" />
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -329,7 +333,38 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </li>
                             </ul>
                         </li>
-                    @endcan
+                        @endcan
+
+                        @can('admin.historial.index')
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">
+                                <i class="bi bi-file-earmark-medical"></i>
+                                <p>
+                                    Historial Clínico
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <style>
+                                .nav-item.active {
+                                    background-color: #91b4a8;
+                                }
+                            </style>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item {{ request()->routeIs('admin.historial.index') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.historial.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Listado del historial</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item {{ request()->routeIs('admin.historial.buscar_paciente') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.historial.buscar_paciente') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Buscar Paciente</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        @endcan
 
 
                         <li class="nav-item">

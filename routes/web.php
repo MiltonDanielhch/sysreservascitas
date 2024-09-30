@@ -5,12 +5,14 @@ use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\ConsultorioController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\SecretariaController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\WebController;
+use App\Models\Historial;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
@@ -125,3 +127,16 @@ Route::get('/admin/reservas/reportes', [EventController::class, 'reportes'])->na
 Route::get('/admin/reservas/pdf', [EventController::class, 'pdf'])->name('admin.reservas.pdf')->middleware('auth', 'can:admin.reservas.pdf');
 Route::get('/admin/reservas/pdf_fechas', [EventController::class, 'pdf_fechas'])->name('admin.reservas.pdf_fechas')->middleware('auth', 'can:admin.reservas.pdf_fechas');
 
+//Rutas para el historial clinico
+Route::get('/admin/historial', [HistorialController::class, 'index'])->name('admin.historial.index')->middleware('auth', 'can:admin.historial.index');
+Route::get('/admin/historial/create', [HistorialController::class, 'create'])->name('admin.historial.create')->middleware('auth', 'can:admin.historial.create');
+Route::get('/admin/historial/reportes', [HistorialController::class, 'reportes'])->name('admin.historial.reportes')->middleware('auth', 'can:admin.historial.reportes');
+Route::get('/admin/historial/pdf/{id}', [HistorialController::class, 'pdf'])->name('admin.historial.pdf')->middleware('auth', 'can:admin.historial.pdf');
+Route::get('/admin/historial/buscar_paciente', [HistorialController::class, 'buscar_paciente'])->name('admin.historial.buscar_paciente')->middleware('auth', 'can:admin.historial.buscar_paciente');
+Route::get('/admin/historial/paciente/{id}', [HistorialController::class, 'imprimir_historial'])->name('admin.historial.imprimir_historial')->middleware('auth', 'can:admin.historial.imprimir_historial');
+Route::post('/admin/historial/create', [HistorialController::class, 'store'])->name('admin.historial.store')->middleware('auth', 'can:admin.historial.store');
+Route::get('/admin/historial/{id}', [HistorialController::class, 'show'])->name('admin.historial.show')->middleware('auth', 'can:admin.historial.show');
+Route::get('/admin/historial/{id}/edit', [HistorialController::class, 'edit'])->name('admin.historial.edit')->middleware('auth', 'can:admin.historial.edit');
+Route::put('/admin/historial/{id}', [HistorialController::class, 'update'])->name('admin.historial.update')->middleware('auth', 'can:admin.historial.update');
+Route::get('/admin/historial/{id}/confirm-delete', [HistorialController::class, 'confirmDelete'])->name('admin.historial.confirmDelete')->middleware('auth', 'can:admin.historial.confirmDelete');
+Route::delete('/admin/historial/{id}', [HistorialController::class, 'destroy'])->name('admin.historial.destroy')->middleware('auth', 'can:admin.historial.destroy');
