@@ -366,6 +366,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </li>
                         @endcan
 
+                        @can('admin.pagos.index')
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">
+                                <i class="bi bi-cash"></i>
+                                <p>
+                                    Pago
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <style>
+                                .nav-item.active {
+                                    background-color: #91b4a8;
+                                }
+                            </style>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item {{ request()->routeIs('admin.pagos.index') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.pagos.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Listado de pagos</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        @endcan
+
 
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" class="nav-link" style="background-color: #a9200e" onclick="event.preventDefault();

@@ -9,6 +9,7 @@ use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\PacienteController;
+use App\Http\Controllers\PagoController;
 use App\Http\Controllers\SecretariaController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\WebController;
@@ -62,9 +63,9 @@ Route::delete('/admin/usuarios/{id}', [UsuarioController::class, 'destroy'])->na
 Route::get('/admin/secretarias', [SecretariaController::class, 'index'])->name('admin.secretarias.index')->middleware('auth', 'can:admin.secretarias.index');
 Route::get('/admin/secretarias/create', [SecretariaController::class, 'create'])->name('admin.secretarias.create')->middleware('auth', 'can:admin.secretarias.create');
 Route::post('/admin/secretarias/create', [SecretariaController::class, 'store'])->name('admin.secretarias.store')->middleware('auth', 'can:admin.secretarias.store');
-Route::get('/admin/secretarias/{id}', [SecretariaController::class, 'show'])->name('admin.secretaria.show')->middleware('auth', 'can:admin.secretaria.show');
-Route::get('/admin/secretarias/{id}/edit', [SecretariaController::class, 'edit'])->name('admin.secretaria.edit')->middleware('auth', 'can:admin.secretaria.edit');
-Route::put('/admin/secretarias/{id}', [SecretariaController::class, 'update'])->name('admin.secretaria.update')->middleware('auth', 'can:admin.secretaria.update');
+Route::get('/admin/secretarias/{id}', [SecretariaController::class, 'show'])->name('admin.secretarias.show')->middleware('auth', 'can:admin.secretarias.show');
+Route::get('/admin/secretarias/{id}/edit', [SecretariaController::class, 'edit'])->name('admin.secretarias.edit')->middleware('auth', 'can:admin.secretarias.edit');
+Route::put('/admin/secretarias/{id}', [SecretariaController::class, 'update'])->name('admin.secretarias.update')->middleware('auth', 'can:admin.secretarias.update');
 Route::get('/admin/secretarias/{id}/confirm-delete', [SecretariaController::class, 'confirmDelete'])->name('admin.secretarias.confirmDelete')->middleware('auth', 'can:admin.secretarias.confirmDelete');
 Route::delete('/admin/secretarias/{id}', [SecretariaController::class, 'destroy'])->name('admin.secretarias.destroy')->middleware('auth', 'can:admin.secretarias.destroy');
 
@@ -81,11 +82,11 @@ Route::delete('/admin/pacientes/{id}', [PacienteController::class, 'destroy'])->
 //Rutas para el admin - Consultorios
 Route::get('/admin/consultorios', [ConsultorioController::class, 'index'])->name('admin.consultorios.index')->middleware('auth', 'can:admin.consultorios.index');
 Route::get('/admin/consultorios/create', [ConsultorioController::class, 'create'])->name('admin.consultorios.create')->middleware('auth','can:admin.consultorios.create');
-Route::post('/admin/consultorios/create', [ConsultorioController::class, 'store'])->name('admin.consultorios.store')->middleware('auth','can:dmin.consultorios.store');
+Route::post('/admin/consultorios/create', [ConsultorioController::class, 'store'])->name('admin.consultorios.store')->middleware('auth','can:admin.consultorios.store');
 Route::get('/admin/consultorios/{id}', [ConsultorioController::class, 'show'])->name('admin.consultorios.show')->middleware('auth', 'can:admin.consultorios.show');
 Route::get('/admin/consultorios/{id}/edit', [ConsultorioController::class, 'edit'])->name('admin.consultorios.edit')->middleware('auth', 'can:admin.consultorios.edit');
 Route::put('/admin/consultorios/{id}', [ConsultorioController::class, 'update'])->name('admin.consultorios.update')->middleware('auth', 'can:admin.consultorios.update');
-Route::get('/admin/consultorios/{id}/confirm-delete', [ConsultorioController::class, 'confirmDelete'])->name('admin.consultorios.confirmDelete')->middleware('auth', 'can:dmin.consultorios.confirmDelete');
+Route::get('/admin/consultorios/{id}/confirm-delete', [ConsultorioController::class, 'confirmDelete'])->name('admin.consultorios.confirmDelete')->middleware('auth', 'can:admin.consultorios.confirmDelete');
 Route::delete('/admin/consultorios/{id}', [ConsultorioController::class, 'destroy'])->name('admin.consultorios.destroy')->middleware('auth', 'can:admin.consultorios.destroy');
 
 //Rutas para el admin - doctores
@@ -140,3 +141,15 @@ Route::get('/admin/historial/{id}/edit', [HistorialController::class, 'edit'])->
 Route::put('/admin/historial/{id}', [HistorialController::class, 'update'])->name('admin.historial.update')->middleware('auth', 'can:admin.historial.update');
 Route::get('/admin/historial/{id}/confirm-delete', [HistorialController::class, 'confirmDelete'])->name('admin.historial.confirmDelete')->middleware('auth', 'can:admin.historial.confirmDelete');
 Route::delete('/admin/historial/{id}', [HistorialController::class, 'destroy'])->name('admin.historial.destroy')->middleware('auth', 'can:admin.historial.destroy');
+
+
+//Rutas para pagos
+Route::get('/admin/pagos', [PagoController::class, 'index'])->name('admin.pagos.index')->middleware('auth', 'can:admin.pagos.index');
+Route::get('/admin/pagos/create', [PagoController::class, 'create'])->name('admin.pagos.create')->middleware('auth', 'can:admin.pagos.create');
+Route::post('/admin/pagos/create', [PagoController::class, 'store'])->name('admin.pagos.store')->middleware('auth', 'can:admin.pagos.store');
+Route::get('/admin/pagos/pdf/{id}', [PagoController::class, 'pdf'])->name('admin.pagos.pdf')->middleware('auth', 'can:admin.pagos.pdf');
+Route::get('/admin/pagos/{id}', [PagoController::class, 'show'])->name('admin.pagos.show')->middleware('auth', 'can:admin.pagos.show');
+Route::get('/admin/pagos/{id}/edit', [PagoController::class, 'edit'])->name('admin.pagos.edit')->middleware('auth', 'can:admin.pagos.edit');
+Route::put('/admin/pagos/{id}', [PagoController::class, 'update'])->name('admin.pagos.update')->middleware('auth', 'can:admin.pagos.update');
+Route::get('/admin/pagos/{id}/confirm-delete', [PagoController::class, 'confirmDelete'])->name('admin.pagos.confirmDelete')->middleware('auth', 'can:admin.pagos.confirmDelete');
+Route::delete('/admin/pagos/{id}', [PagoController::class, 'destroy'])->name('admin.pagos.destroy')->middleware('auth', 'can:admin.pagos.destroy');

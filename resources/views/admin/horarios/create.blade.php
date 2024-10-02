@@ -21,8 +21,9 @@
                                 <select name="consultorio_id" id="consultorio_select" class="form-control">
                                     <option value="">Selectionar consultorio</option>
                                     @foreach ($consultorios as $consultorio)
-                                    <option value="{{ $consultorio->id }}">{{ $consultorio->nombre }} - {{
-                                        $consultorio->ubicacion }}</option>
+                                      <option value="{{ $consultorio->id }}">{{ $consultorio->nombre }} - {{
+                                        $consultorio->ubicacion }}
+                                      </option>
                                     @endforeach
                                 </select>
                             </div>

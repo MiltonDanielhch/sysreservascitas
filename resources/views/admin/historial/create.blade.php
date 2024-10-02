@@ -25,7 +25,7 @@
                                     </select>
                                 </div>
                             </div> --}}
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="search">Buscar paciente:</label>
                                     <input type="text" name="search" id="search" class="form-control">
@@ -34,13 +34,11 @@
                                     <label for="">Paciente</label> <b>*</b>
                                     <select name="paciente_id" id="paciente_select" class="form-control">
                                         @foreach ($pacientes as $paciente)
-                                            <option value="{{ $paciente->id }}">{{ $paciente->apellidos }}, {{ $paciente->nombres }}</option>
+                                            <option value="{{ $paciente->id }}">{{ $paciente->apellidos }} {{ $paciente->nombres }}</option>
                                         @endforeach
                                     </select>
                                 </div>  
-
                             </div>
-
                             <script>
                                 document.getElementById('search').addEventListener('input', function() {
                                     const searchInput = this.value.toLowerCase();
@@ -56,6 +54,59 @@
                                             option.style.display = 'none';
                                         }
                                     }
+                                });
+                            </script> --}}
+
+                            <style>
+                                .search-result {
+                                    padding: 5px;
+                                    cursor: pointer;
+                                    background-color: #f2f2f2;
+                                    border-bottom: 1px solid #ddd;
+                                }
+                            </style>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="search">Buscar paciente:</label>
+                                    <select name="paciente_id" id="paciente_select" class="form-control">
+                                        <option value="">Selecciona un paciente</option>
+                                        @foreach ($pacientes as $paciente)
+                                            <option value="{{ $paciente->id }}">{{ $paciente->apellidos }} {{ $paciente->nombres }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div id="search-results"></div>
+                                </div>
+                            </div>
+
+
+                            <script>
+                                const searchInput = document.getElementById('paciente_select');
+                                const resultsDiv = document.getElementById('search-results');
+
+                                searchInput.addEventListener('input', (event) => {
+                                    const searchTerm = event.target.value.toLowerCase();
+                                    const options = searchInput.options;
+                                    let resultsHtml = '';
+
+                                    for (let i = 0; i < options.length; i++) {
+                                        const option = options[i];
+                                        const text = option.text.toLowerCase();
+                                        if (text.indexOf(searchTerm) !== -1) {
+                                            resultsHtml += `<div class="search-result">${option.text}</div>`;
+                                        }
+                                    }
+
+                                    resultsDiv.innerHTML = resultsHtml;
+
+                                    // Agregar evento a los resultados
+                                    const results = document.querySelectorAll('.search-result');
+                                    results.forEach(result => {
+                                        result.addEventListener('click', () => {
+                                            searchInput.value = result.textContent;
+                                            resultsDiv.innerHTML = '';
+                                        });
+                                    });
                                 });
                             </script>
                             <div class="col-md-6">

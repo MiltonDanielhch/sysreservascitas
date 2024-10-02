@@ -106,7 +106,7 @@ class PacienteController extends Controller
             'observaciones'=>'required'
         ]);
 
-        $paciente = new Paciente();
+        // $paciente = new Paciente();
         $paciente->nombres = $request->nombres;
         $paciente->apellidos = $request->apellidos;
         $paciente->ci = $request->ci;

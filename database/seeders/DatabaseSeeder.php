@@ -110,7 +110,6 @@ class DatabaseSeeder extends Seeder
             'licencia_medica'=>'78436425',
             'especialidad'=>'fisioterapia',
             'user_id'=>'5'
-
         ]);
 
         Consultorio::create([
